@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viaplex</title>
+    <meta name="description" content="Evolving Intelligence. Full Sovereignty. Proprietary AI infrastructure in pursuit of truth.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0a0607;
+            --bg-mid: #0e090a;
+            --bg-surface: #140d0e;
+            --text-hero: #e8cfc4;
+            --text-primary: #b8948a;
+            --text-secondary: #70504a;
+            --text-dim: #4a302c;
+            --red: #c0392b;
+            --red-bright: #e74c3c;
+            --red-soft: #d4635a;
+            --border: rgba(192, 57, 43, 0.06);
+            --font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(ellipse 130% 90% at 50% 25%, rgba(130, 22, 18, 0.045) 0%, transparent 65%),
+                radial-gradient(ellipse 90% 130% at 75% 75%, rgba(110, 18, 12, 0.03) 0%, transparent 55%);
+            pointer-events: none; z-index: 0;
+        }
+        body::after {
+            content: '';
+            position: fixed; inset: 0;
+            background: radial-gradient(ellipse 65% 55% at 50% 50%, transparent 0%, rgba(6, 3, 3, 0.45) 100%);
+            pointer-events: none; z-index: 0;
+        }
+
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 64px; padding: 0 2.5rem;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(10, 6, 7, 0.7);
+            backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            display: flex; align-items: center; gap: 0.6rem;
+            text-decoration: none;
+        }
+        .logo-mark { width: 30px; height: 30px; flex-shrink: 0; }
+        .logo-type { height: 16px; }
+
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            font-size: 0.78rem; font-weight: 300;
+            letter-spacing: 0.04em;
+            color: var(--text-secondary); text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--text-hero); }
+
+        .nav-toggle {
+            display: none; background: none; border: none;
+            cursor: pointer; padding: 8px;
+        }
+        .nav-toggle span {
+            display: block; width: 20px; height: 1px;
+            background: var(--text-secondary); margin: 5px 0;
+        }
+
+        .hero {
+            position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        #sacred-canvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            opacity: 0.25;
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+            font-weight: 200;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: var(--text-hero);
+            margin-bottom: 1.5rem;
+            opacity: 0; animation: fadeUp 1s ease 0.2s forwards;
+        }
+
+        .hero-title .accent {
+            font-weight: 400;
+            color: var(--red-soft);
+        }
+
+        .hero-sub {
+            font-size: 1.02rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 380px;
+            margin: 0 auto;
+            opacity: 0; animation: fadeUp 1s ease 0.5s forwards;
+        }
+
+        .hero-scroll {
+            position: absolute; bottom: 2.5rem;
+            left: 50%; transform: translateX(-50%);
+            width: 1px; height: 48px;
+            background: linear-gradient(to bottom, var(--red), transparent);
+            opacity: 0; animation: fadeIn 1s ease 1.2s forwards;
+        }
+
+        section { position: relative; z-index: 1; }
+        .pad { padding: 10rem 2rem; }
+        .pad-sm { padding: 6rem 2rem; }
+        .center { text-align: center; }
+        .wrap { max-width: 1080px; margin: 0 auto; }
+        .wrap-narrow { max-width: 540px; margin: 0 auto; }
+
+        .label {
+            font-size: 0.68rem; font-weight: 400;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+            font-weight: 200;
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+            color: var(--text-hero);
+        }
+
+        .models-section {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-mid);
+        }
+
+        .models-text {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            font-weight: 200;
+            line-height: 1.7;
+            color: var(--text-hero);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .models-text strong {
+            font-weight: 400;
+            color: var(--red-soft);
+        }
+
+        .orrery-section { padding: 10rem 2rem; }
+
+        .orrery-wrap {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .orrery {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            aspect-ratio: 1;
+            margin: 5rem auto 0;
+        }
+
+        .orrery-canvas {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+        }
+
+        .orrery-center {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+        }
+
+        .orrery-center-word {
+            font-size: 0.78rem;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--red-soft);
+        }
+
+        .o-node {
+            position: absolute;
+            text-align: center;
+            width: 110px;
+            margin-left: -55px;
+            margin-top: -26px;
+            z-index: 2;
+        }
+
+        .o-node h4 {
+            font-size: 0.85rem; font-weight: 400;
+            color: var(--text-hero);
+            margin-bottom: 0.12rem;
+        }
+
+        .o-node p {
+            font-size: 0.68rem; font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .o-0 { top: 3%;    left: 50%; }
+        .o-1 { top: 20%;   left: 86.5%; }
+        .o-2 { top: 58.5%; left: 95%; }
+        .o-3 { top: 89%;   left: 71%; }
+        .o-4 { top: 89%;   left: 29%; }
+        .o-5 { top: 58.5%; left: 5%; }
+        .o-6 { top: 20%;   left: 13.5%; }
+
+        .statement {
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-mid);
+        }
+
+        .statement-text {
+            font-size: clamp(1.25rem, 2.3vw, 1.8rem);
+            font-weight: 200;
+            line-height: 1.65;
+            color: var(--text-hero);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .statement-text strong {
+            font-weight: 400;
+            color: var(--red-soft);
+        }
+
+        .infra-section {
+            border-top: 1px solid var(--border);
+            background: var(--bg-mid);
+        }
+
+        .infra-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        .infra-card {
+            background: var(--bg-deep);
+            padding: 3.5rem 3rem;
+            transition: background 0.5s ease;
+            text-align: center;
+        }
+        .infra-card:hover { background: var(--bg-surface); }
+
+        .infra-card h4 {
+            font-size: 0.62rem; font-weight: 400;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .infra-card .infra-name {
+            font-size: 1.3rem; font-weight: 300;
+            color: var(--text-hero);
+        }
+
+        .infra-card .infra-sub {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        .contact-section {
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-bg-symbol {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 380px;
+            height: 380px;
+            opacity: 0.04;
+            pointer-events: none;
+        }
+
+        .contact-email { margin-top: 2rem; }
+
+        .contact-email a {
+            font-size: 1.1rem; font-weight: 300;
+            color: var(--text-hero);
+            text-decoration: none;
+            transition: color 0.3s;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.2rem;
+        }
+        .contact-email a:hover {
+            color: var(--red-soft);
+            border-color: var(--red);
+        }
+
+        footer {
+            position: relative; z-index: 1;
+            padding: 2.5rem;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-logo {
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .footer-mark { width: 20px; height: 20px; opacity: 0.2; }
+        .footer-type { height: 11px; opacity: 0.2; }
+        .footer-copy {
+            font-size: 0.7rem; font-weight: 300; color: var(--text-dim);
+        }
+
+        .vd {
+            display: flex; align-items: center; justify-content: center;
+            padding: 3rem 0; gap: 1.5rem;
+        }
+        .vd .ln { width: 40px; height: 1px; background: var(--border); }
+        .vd svg { width: 22px; height: 22px; color: var(--red); opacity: 0.15; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .reveal {
+            opacity: 0; transform: translateY(24px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .infra-cards { grid-template-columns: 1fr; }
+            .orrery { max-width: 440px; }
+            .o-node { width: 95px; margin-left: -47px; }
+            .o-node h4 { font-size: 0.78rem; }
+            .contact-bg-symbol { width: 260px; height: 260px; right: -10%; }
+        }
+        @media (max-width: 640px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links {
+                display: none; position: fixed;
+                top: 64px; left: 0; right: 0;
+                flex-direction: column; padding: 1.5rem;
+                background: rgba(10, 6, 7, 0.97);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+            .pad { padding: 6rem 1.5rem; }
+            .pad-sm { padding: 4rem 1.5rem; }
+            .orrery-section { padding: 6rem 1.5rem; }
+            .orrery {
+                aspect-ratio: auto;
+                max-width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 1.8rem;
+                margin-top: 3rem;
+            }
+            .orrery-canvas { display: none; }
+            .orrery-center {
+                position: static; transform: none;
+                margin-bottom: 0.5rem;
+            }
+            .o-node {
+                position: static;
+                width: 100%; margin: 0;
+                text-align: left;
+                display: flex; align-items: baseline; gap: 0.8rem;
+            }
+            .o-node::before {
+                content: '';
+                width: 5px; height: 5px;
+                border-radius: 50%;
+                background: var(--red);
+                opacity: 0.5;
+                flex-shrink: 0;
+                margin-top: 0.35rem;
+            }
+            .contact-bg-symbol { width: 200px; height: 200px; right: -15%; opacity: 0.03; }
+        }
+    </style>
+</head>
+<body>
+
+<svg style="position:absolute;width:0;height:0;">
+    <defs>
+        <symbol id="seed" viewBox="0 0 100 100">
+            <circle cx="50" cy="30" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="67.32" cy="40" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="67.32" cy="60" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="50" cy="70" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="32.68" cy="60" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="32.68" cy="40" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="50" cy="50" r="20" fill="none" stroke="url(#sg)" stroke-width="1.2" opacity="0.7"/>
+            <circle cx="50" cy="50" r="2.5" fill="url(#sg)"/>
+        </symbol>
+        <symbol id="vesica" viewBox="0 0 100 100">
+            <circle cx="38" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="1"/>
+            <circle cx="62" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="1"/>
+        </symbol>
+        <symbol id="metatron" viewBox="0 0 200 200">
+            <circle cx="100" cy="30" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="160.6" cy="65" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="160.6" cy="135" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="100" cy="170" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="39.4" cy="135" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="39.4" cy="65" r="28" fill="none" stroke="currentColor" stroke-width="0.5"/>
+            <circle cx="100" cy="65" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="130.3" cy="82.5" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="130.3" cy="117.5" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="100" cy="135" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="69.7" cy="117.5" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="69.7" cy="82.5" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <circle cx="100" cy="100" r="28" fill="none" stroke="currentColor" stroke-width="0.4" opacity="0.6"/>
+            <line x1="100" y1="30" x2="160.6" y2="65" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="160.6" y1="65" x2="160.6" y2="135" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="160.6" y1="135" x2="100" y2="170" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="100" y1="170" x2="39.4" y2="135" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="39.4" y1="135" x2="39.4" y2="65" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="39.4" y1="65" x2="100" y2="30" stroke="currentColor" stroke-width="0.3" opacity="0.4"/>
+            <line x1="100" y1="30" x2="160.6" y2="135" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <line x1="100" y1="30" x2="39.4" y2="135" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <line x1="160.6" y1="65" x2="39.4" y2="135" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <line x1="160.6" y1="65" x2="100" y2="170" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <line x1="160.6" y1="135" x2="39.4" y2="65" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <line x1="100" y1="170" x2="39.4" y2="65" stroke="currentColor" stroke-width="0.2" opacity="0.3"/>
+            <circle cx="100" cy="100" r="3" fill="currentColor" opacity="0.3"/>
+        </symbol>
+        <!--
+            VIAPLEX logotype — rebuilt with even spacing and prominent I
+            V:  2-40    (w38)  gap14
+            I: 54-78    (w24 — wide serifs)  gap14
+            A: 92-126   (w34)  gap14
+            P: 140-168  (w28)  gap14
+            L: 182-206  (w24)  gap14
+            E: 220-244  (w24)  gap14
+            X: 258-290  (w32)
+            viewBox: 0 0 292 48
+        -->
+        <symbol id="logotype" viewBox="0 0 292 48">
+            <!-- V -->
+            <path d="M2 8 L21 40 L40 8" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <!-- I — wide serifs, clear vertical -->
+            <path d="M54 8 L78 8" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <path d="M66 8 L66 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <path d="M54 40 L78 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <!-- A — open, no crossbar, center dot -->
+            <path d="M92 40 L109 8 L126 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <circle cx="109" cy="30" r="1.5" fill="url(#sg)" opacity="0.4"/>
+            <!-- P -->
+            <path d="M140 40 L140 8 L160 8 L164 12 L164 24 L160 28 L140 28" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/>
+            <!-- L -->
+            <path d="M182 8 L182 40 L206 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <!-- E -->
+            <path d="M220 8 L220 40 M220 8 L244 8 M220 24 L240 24 M220 40 L244 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <!-- X — with center dot -->
+            <path d="M258 8 L290 40 M290 8 L258 40" fill="none" stroke="url(#sg)" stroke-width="2.4" stroke-linecap="square"/>
+            <circle cx="274" cy="24" r="1.8" fill="url(#sg)" opacity="0.35"/>
+        </symbol>
+        <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#a8aab0"/>
+            <stop offset="50%" stop-color="#c9a84c"/>
+            <stop offset="100%" stop-color="#a8aab0"/>
+        </linearGradient>
+    </defs>
+</svg>
+
+<nav>
+    <a href="#" class="logo">
+        <svg class="logo-mark"><use href="#seed"/></svg>
+        <svg class="logo-type" viewBox="0 0 292 48"><use href="#logotype"/></svg>
+    </a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#cycle">Platform</a></li>
+        <li><a href="#infrastructure">Infrastructure</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span>
+    </button>
+</nav>
+
+<section class="hero">
+    <canvas id="sacred-canvas"></canvas>
+    <div class="hero-content">
+        <h1 class="hero-title">Evolving Intelligence.<br><span class="accent">Full Sovereignty.</span></h1>
+        <p class="hero-sub">Proprietary AI in pursuit of truth.</p>
+    </div>
+    <div class="hero-scroll"></div>
+</section>
+
+<section class="models-section pad-sm center">
+    <div class="wrap-narrow reveal">
+        <p class="models-text">
+            405B parameter models — each specialized for a single domain, trained on a proprietary knowledge base, <strong>growing sharper</strong> with every cycle.
+        </p>
+    </div>
+</section>
+
+<section id="cycle" class="orrery-section">
+    <div class="orrery-wrap center reveal">
+        <p class="label">Platform</p>
+        <h2>Always running. Always learning.</h2>
+
+        <div class="orrery">
+            <canvas class="orrery-canvas" id="orreryCanvas"></canvas>
+            <div class="orrery-center">
+                <span class="orrery-center-word">Truth</span>
+            </div>
+            <div class="o-node o-0"><h4>Acquire</h4><p>Thousands of sources.</p></div>
+            <div class="o-node o-1"><h4>Infer</h4><p>Specialized models.</p></div>
+            <div class="o-node o-2"><h4>Synthesize</h4><p>Consensus from divergence.</p></div>
+            <div class="o-node o-3"><h4>Predict</h4><p>Commit to a position.</p></div>
+            <div class="o-node o-4"><h4>Backtest</h4><p>Prove it against history.</p></div>
+            <div class="o-node o-5"><h4>Measure</h4><p>Compare to reality.</p></div>
+            <div class="o-node o-6"><h4>Learn</h4><p>Retrain. Refine. Repeat.</p></div>
+        </div>
+    </div>
+</section>
+
+<div class="vd">
+    <div class="ln"></div>
+    <svg viewBox="0 0 100 100"><use href="#vesica"/></svg>
+    <div class="ln"></div>
+</div>
+
+<section class="statement pad center">
+    <div class="wrap-narrow reveal">
+        <p class="statement-text">
+            We train proprietary models, run continuous experiments, and backtest relentlessly — not just to predict, but to <strong>arrive at understanding</strong>.
+        </p>
+    </div>
+</section>
+
+<div class="vd">
+    <div class="ln"></div>
+    <svg viewBox="0 0 100 100"><use href="#vesica"/></svg>
+    <div class="ln"></div>
+</div>
+
+<section id="infrastructure" class="infra-section pad">
+    <div class="wrap">
+        <div class="center reveal">
+            <p class="label">Infrastructure</p>
+            <h2>Our models. Our knowledge. Our iron.</h2>
+        </div>
+        <div class="infra-cards reveal">
+            <div class="infra-card">
+                <h4>Inference</h4>
+                <p class="infra-name">Apple Silicon Ultra</p>
+                <p class="infra-sub">Local models. No constraints.</p>
+            </div>
+            <div class="infra-card">
+                <h4>Acceleration</h4>
+                <p class="infra-name">NVIDIA</p>
+                <p class="infra-sub">GPU training and compute.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact-section pad-sm">
+    <div class="wrap reveal" style="position: relative;">
+        <svg class="contact-bg-symbol" viewBox="0 0 200 200" style="color: var(--red);"><use href="#metatron"/></svg>
+        <p class="label">Contact</p>
+        <h2>Connect.</h2>
+        <div class="contact-email">
+            <a href="mailto:now@viaplex.com">now@viaplex.com</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-logo">
+        <svg class="footer-mark"><use href="#seed"/></svg>
+        <svg class="footer-type" viewBox="0 0 292 48"><use href="#logotype"/></svg>
+    </div>
+    <span class="footer-copy">&copy; 2026</span>
+</footer>
+
+<script>
+var canvas = document.getElementById('sacred-canvas');
+var ctx = canvas.getContext('2d');
+var t = 0;
+
+function sz() {
+    canvas.width = canvas.offsetWidth * devicePixelRatio;
+    canvas.height = canvas.offsetHeight * devicePixelRatio;
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+}
+sz();
+window.addEventListener('resize', sz);
+
+function draw() {
+    var w = canvas.offsetWidth, h = canvas.offsetHeight;
+    ctx.clearRect(0, 0, w, h);
+    var cx = w / 2, cy = h / 2;
+    var R = Math.min(w, h) * 0.28;
+    var rot = t * 0.00015;
+
+    var pts = [{x: cx, y: cy}];
+    for (var i = 0; i < 6; i++) {
+        var a = Math.PI / 3 * i + rot;
+        pts.push({x: cx + Math.cos(a) * R * 0.5, y: cy + Math.sin(a) * R * 0.5});
+    }
+    for (var i = 0; i < 6; i++) {
+        var a = Math.PI / 3 * i + rot;
+        pts.push({x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R});
+    }
+
+    ctx.strokeStyle = 'rgba(192, 57, 43, 0.03)';
+    ctx.lineWidth = 0.5;
+    for (var i = 0; i < pts.length; i++) {
+        for (var j = i + 1; j < pts.length; j++) {
+            ctx.beginPath();
+            ctx.moveTo(pts[i].x, pts[i].y);
+            ctx.lineTo(pts[j].x, pts[j].y);
+            ctx.stroke();
+        }
+    }
+
+    for (var i = 0; i < pts.length; i++) {
+        ctx.beginPath();
+        ctx.arc(pts[i].x, pts[i].y, R * 0.17, 0, Math.PI * 2);
+        ctx.strokeStyle = 'rgba(192, 57, 43, ' + (i === 0 ? 0.06 : 0.02) + ')';
+        ctx.lineWidth = 0.4;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(pts[i].x, pts[i].y, i === 0 ? 2.5 : 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(192, 57, 43, ' + (i === 0 ? 0.35 : 0.12) + ')';
+        ctx.fill();
+    }
+
+    t++;
+    requestAnimationFrame(draw);
+}
+draw();
+
+var oCanvas = document.getElementById('orreryCanvas');
+var oCtx = oCanvas.getContext('2d');
+var ot = 0;
+
+function oSz() {
+    oCanvas.width = oCanvas.offsetWidth * devicePixelRatio;
+    oCanvas.height = oCanvas.offsetHeight * devicePixelRatio;
+    oCtx.scale(devicePixelRatio, devicePixelRatio);
+}
+oSz();
+window.addEventListener('resize', oSz);
+
+function drawOrrery() {
+    var w = oCanvas.offsetWidth, h = oCanvas.offsetHeight;
+    oCtx.clearRect(0, 0, w, h);
+    var cx = w / 2, cy = h / 2;
+    var R = Math.min(w, h) * 0.40;
+    var rot = ot * 0.0003;
+
+    for (var r = 0; r < 3; r++) {
+        var ringR = R * (0.35 + r * 0.15);
+        oCtx.beginPath();
+        oCtx.arc(cx, cy, ringR, 0, Math.PI * 2);
+        oCtx.strokeStyle = 'rgba(192, 57, 43, ' + (0.035 - r * 0.008) + ')';
+        oCtx.lineWidth = 0.5;
+        oCtx.stroke();
+    }
+
+    oCtx.beginPath();
+    oCtx.arc(cx, cy, R, 0, Math.PI * 2);
+    oCtx.strokeStyle = 'rgba(192, 57, 43, 0.07)';
+    oCtx.lineWidth = 0.6;
+    oCtx.setLineDash([3, 5]);
+    oCtx.stroke();
+    oCtx.setLineDash([]);
+
+    for (var p = 0; p < 14; p++) {
+        var pa = (Math.PI * 2 / 14) * p + rot;
+        var pr = R * (0.82 + Math.sin(ot * 0.002 + p * 1.7) * 0.15);
+        var px = cx + Math.cos(pa) * pr;
+        var py = cy + Math.sin(pa) * pr;
+        var pSize = 1 + Math.sin(ot * 0.003 + p) * 0.5;
+        oCtx.beginPath();
+        oCtx.arc(px, py, pSize, 0, Math.PI * 2);
+        oCtx.fillStyle = 'rgba(192, 57, 43, ' + (0.1 + Math.sin(ot * 0.002 + p * 2) * 0.05) + ')';
+        oCtx.fill();
+    }
+
+    var grad = oCtx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.22);
+    grad.addColorStop(0, 'rgba(192, 57, 43, 0.07)');
+    grad.addColorStop(1, 'rgba(192, 57, 43, 0)');
+    oCtx.beginPath();
+    oCtx.arc(cx, cy, R * 0.22, 0, Math.PI * 2);
+    oCtx.fillStyle = grad;
+    oCtx.fill();
+
+    oCtx.beginPath();
+    oCtx.arc(cx, cy, 3.5, 0, Math.PI * 2);
+    oCtx.fillStyle = 'rgba(192, 57, 43, 0.35)';
+    oCtx.fill();
+
+    for (var n = 0; n < 7; n++) {
+        var na = -Math.PI / 2 + (Math.PI * 2 / 7) * n;
+        var nx = cx + Math.cos(na) * R;
+        var ny = cy + Math.sin(na) * R;
+
+        oCtx.beginPath();
+        oCtx.moveTo(cx, cy);
+        oCtx.lineTo(nx, ny);
+        oCtx.strokeStyle = 'rgba(192, 57, 43, 0.025)';
+        oCtx.lineWidth = 0.5;
+        oCtx.stroke();
+
+        oCtx.beginPath();
+        oCtx.arc(nx, ny, 4, 0, Math.PI * 2);
+        oCtx.fillStyle = 'rgba(192, 57, 43, 0.2)';
+        oCtx.fill();
+    }
+
+    for (var a = 0; a < 7; a++) {
+        var aa = -Math.PI / 2 + (Math.PI * 2 / 7) * a + (Math.PI / 7);
+        var ax = cx + Math.cos(aa) * R;
+        var ay = cy + Math.sin(aa) * R;
+        var aDir = aa + Math.PI / 2;
+        oCtx.beginPath();
+        oCtx.moveTo(ax + Math.cos(aDir) * 4, ay + Math.sin(aDir) * 4);
+        oCtx.lineTo(ax - Math.cos(aDir) * 2 + Math.cos(aa) * 3, ay - Math.sin(aDir) * 2 + Math.sin(aa) * 3);
+        oCtx.lineTo(ax - Math.cos(aDir) * 2 - Math.cos(aa) * 3, ay - Math.sin(aDir) * 2 - Math.sin(aa) * 3);
+        oCtx.closePath();
+        oCtx.fillStyle = 'rgba(192, 57, 43, 0.08)';
+        oCtx.fill();
+    }
+
+    ot++;
+    requestAnimationFrame(drawOrrery);
+}
+drawOrrery();
+
+document.getElementById('navToggle').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(function(a) {
+    a.addEventListener('click', function() {
+        document.getElementById('navLinks').classList.remove('open');
+    });
+});
+
+var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+</script>
+
+</body>
+</html>
