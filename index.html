@@ -563,12 +563,11 @@
     <div class="hero-scroll"></div>
 </section>
 
-<section class="models-section pad-sm center">
+<section class="statement pad-sm center">
     <div class="wrap-narrow reveal">
-        <p class="models-text"><span class="accent">Intelligence is emerging</span> as a new form of infrastructure.</p>
-        <p class="models-text">VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.</p>
-        <p class="models-text">These systems are built to uncover hidden order, deepen knowledge, and generate predictive insight.</p>
-        <p class="models-text">The domains we study and the methods we employ remain proprietary.</p>
+        <p class="statement-text" data-i18n="statement">
+            We train proprietary models, run continuous experiments, and backtest relentlessly — not just to predict, but to <strong>arrive at understanding</strong>.
+        </p>
     </div>
 </section>
 
@@ -622,11 +621,12 @@
     <div class="ln"></div>
 </div>
 
-<section class="statement pad center">
+<section class="models-section pad center">
     <div class="wrap-narrow reveal">
-        <p class="statement-text">
-            We train proprietary models, run continuous experiments, and backtest relentlessly — not just to predict, but to <strong>arrive at understanding</strong>.
-        </p>
+        <p class="models-text"><span class="accent">Intelligence is emerging</span> as a new form of infrastructure.</p>
+        <p class="models-text">VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.</p>
+        <p class="models-text">Built to deepen knowledge and generate predictive insight.</p>
+        <p class="models-text">The domains we study and the methods we employ remain proprietary.</p>
     </div>
 </section>
 
@@ -854,7 +854,9 @@ var translations = {
     en: {
         heroTitle: 'Sovereign Systems.<br><span class="accent">Revealing Reality.</span>',
         heroSub: 'Proprietary AI in pursuit of signal.',
-        modelsText: '<span class="accent">Intelligence is emerging</span> as a new form of infrastructure.<br><br>VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.<br><br>These systems are built to uncover hidden order, deepen knowledge, and generate predictive insight.<br><br>The domains we study and the methods we employ remain proprietary.',
+        modelsText: '<span class="accent">Intelligence is emerging</span> as a new form of infrastructure.<br><br>VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.<br><br>Built to deepen knowledge and generate predictive insight.<br><br>The domains we study and the methods we employ remain proprietary.',
+        statement: 'We train proprietary models, run continuous experiments, and backtest relentlessly \u2014 not just to predict, but to <strong>arrive at understanding</strong>.',
+        infraTitle: 'Our models. Our knowledge. Our iron.',
         platformLabel: 'Platform',
         platformTitle: 'Always running. Always refining.',
         contactLabel: 'Contact',
@@ -874,7 +876,9 @@ var translations = {
     es: {
         heroTitle: 'Sistemas Soberanos.<br><span class="accent">Revelando la Realidad.</span>',
         heroSub: 'IA propietaria en busca de la se\u00f1al.',
-        modelsText: '<span class="accent">La inteligencia est\u00e1 emergiendo</span> como una nueva forma de infraestructura.<br><br>VIAPLEX desarrolla sistemas de inteligencia soberana para el an\u00e1lisis profundo en dominios complejos.<br><br>Estos sistemas est\u00e1n dise\u00f1ados para descubrir el orden oculto, profundizar el conocimiento y generar perspectivas predictivas.<br><br>Los dominios que estudiamos y los m\u00e9todos que empleamos son propietarios.',
+        modelsText: '<span class="accent">La inteligencia est\u00e1 emergiendo</span> como una nueva forma de infraestructura.<br><br>VIAPLEX desarrolla sistemas de inteligencia soberana para el an\u00e1lisis profundo en dominios complejos.<br><br>Construidos para profundizar el conocimiento y generar perspectivas predictivas.<br><br>Los dominios que estudiamos y los m\u00e9todos que empleamos son propietarios.',
+        statement: 'Entrenamos modelos propietarios, ejecutamos experimentos continuos y realizamos backtesting sin descanso \u2014 no solo para predecir, sino para <strong>llegar a la comprensi\u00f3n</strong>.',
+        infraTitle: 'Nuestros modelos. Nuestro conocimiento. Nuestro hierro.',
         platformLabel: 'Plataforma',
         platformTitle: 'Siempre activo. Siempre refinando.',
         contactLabel: 'Contacto',
@@ -940,6 +944,12 @@ function setLang(lang) {
     
     var centerWord = document.querySelector('.orrery-center-word');
     if (centerWord) centerWord.textContent = t.centerWord;
+    
+    var statementEl = document.querySelector('[data-i18n="statement"]');
+    if (statementEl && t.statement) statementEl.innerHTML = t.statement;
+    
+    var infraTitleEl = document.querySelector('.infra-section h2');
+    if (infraTitleEl && t.infraTitle) infraTitleEl.textContent = t.infraTitle;
     
     try { localStorage.setItem('viaplex-lang', lang); } catch(e) {}
 }
