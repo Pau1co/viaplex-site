@@ -898,6 +898,12 @@ var translations = {
         modelsText: '<span class="accent">Intelligence is emerging</span> as a new form of infrastructure.<br><br>VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.<br><br>Built to deepen knowledge and generate predictive insight.<br><br>The domains we study and the methods we employ remain proprietary.',
         statement: 'We train proprietary models, run continuous experiments, and backtest relentlessly \u2014 not just to predict, but to <strong>arrive at understanding</strong>.',
         infraTitle: 'Our models. Our knowledge. Our iron.',
+        infraLabel: 'Infrastructure',
+        logoSubtitle: 'Intelligence Lab',
+        infraCard1Title: 'Inference',
+        infraCard1Sub: 'Local models. No constraints.',
+        infraCard2Title: 'Acceleration',
+        infraCard2Sub: 'GPU training and compute.',
         platformLabel: 'Platform',
         platformTitle: 'Always running. Always refining.',
         contactLabel: 'Contact',
@@ -920,6 +926,12 @@ var translations = {
         modelsText: '<span class="accent">La inteligencia est\u00e1 emergiendo</span> como una nueva forma de infraestructura.<br><br>VIAPLEX desarrolla sistemas de inteligencia soberana para el an\u00e1lisis profundo en dominios complejos.<br><br>Construidos para profundizar el conocimiento y generar perspectivas predictivas.<br><br>Los dominios que estudiamos y los m\u00e9todos que empleamos son propietarios.',
         statement: 'Entrenamos modelos propietarios, ejecutamos experimentos continuos y realizamos backtesting sin descanso \u2014 no solo para predecir, sino para <strong>llegar a la comprensi\u00f3n</strong>.',
         infraTitle: 'Nuestros modelos. Nuestro conocimiento. Nuestro hierro.',
+        infraLabel: 'Infraestructura',
+        logoSubtitle: 'Laboratorio de Inteligencia',
+        infraCard1Title: 'Inferencia',
+        infraCard1Sub: 'Modelos locales. Sin restricciones.',
+        infraCard2Title: 'Aceleraci\u00f3n',
+        infraCard2Sub: 'Entrenamiento y c\u00f3mputo GPU.',
         platformLabel: 'Plataforma',
         platformTitle: 'Siempre activo. Siempre refinando.',
         contactLabel: 'Contacto',
@@ -931,7 +943,7 @@ var translations = {
         node1: '<h4>Refinar</h4><p>Reentrenar - Mejorar - Repetir</p>',
         node2: '<h4>Validar</h4><p>Comparar con la realidad</p>',
         node3: '<h4>Predecir</h4><p>Comprometerse con una posici\u00f3n</p>',
-        node4: '<h4>Backtesting</h4><p>Probarlo contra la historia</p>',
+        node4: '<h4>Prueba Retroactiva</h4><p>Probarlo contra la historia</p>',
         node5: '<h4>Sintetizar</h4><p>Consenso desde la divergencia</p>',
         node6: '<h4>Inferir</h4><p>Modelos especializados</p>',
         centerWord: 'Realidad'
@@ -965,13 +977,25 @@ function setLang(lang) {
     
     var labels = document.querySelectorAll('.label');
     if (labels[0]) labels[0].textContent = t.platformLabel;
-    if (labels[1]) labels[1].textContent = t.contactLabel;
+    if (labels[1]) labels[1].textContent = t.infraLabel;
+    if (labels[2]) labels[2].textContent = t.contactLabel;
     
     var platformH2 = document.querySelector('.orrery-wrap h2');
     if (platformH2) platformH2.textContent = t.platformTitle;
     
     var contactH2 = document.querySelector('.contact-section h2');
     if (contactH2) contactH2.textContent = t.contactTitle;
+    
+    // Infra card titles and subs
+    var infraCards = document.querySelectorAll('.infra-card');
+    if (infraCards[0] && t.infraCard1Title) {
+        infraCards[0].querySelector('h4').textContent = t.infraCard1Title;
+        infraCards[0].querySelector('.infra-sub').textContent = t.infraCard1Sub;
+    }
+    if (infraCards[1] && t.infraCard2Title) {
+        infraCards[1].querySelector('h4').textContent = t.infraCard2Title;
+        infraCards[1].querySelector('.infra-sub').textContent = t.infraCard2Sub;
+    }
     
     var navLinks = document.querySelectorAll('.nav-links a');
     if (navLinks[0]) navLinks[0].textContent = t.navPlatform;
@@ -992,15 +1016,24 @@ function setLang(lang) {
     var infraTitleEl = document.querySelector('.infra-section h2');
     if (infraTitleEl && t.infraTitle) infraTitleEl.textContent = t.infraTitle;
     
+    var logoSub = document.querySelector('.logo-subtitle');
+    if (logoSub && t.logoSubtitle) {
+        logoSub.textContent = t.logoSubtitle;
+        if (lang === 'es') {
+            logoSub.style.paddingLeft = '0';
+            logoSub.style.textAlign = 'center';
+            logoSub.style.width = '100%';
+        } else {
+            logoSub.style.paddingLeft = '2.1rem';
+            logoSub.style.textAlign = '';
+            logoSub.style.width = '';
+        }
+    }
+    
     try { localStorage.setItem('viaplex-lang', lang); } catch(e) {}
 }
 
-(function() {
-    try {
-        var saved = localStorage.getItem('viaplex-lang');
-        if (saved && saved !== 'en') setLang(saved);
-    } catch(e) {}
-})();
+// Always start in English
 </script>
 
 </body>
