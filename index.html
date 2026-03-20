@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viaplex</title>
-    <meta name="description" content="Sovereign Systems. Revealing Reality. Proprietary AI infrastructure in pursuit of signal.">
+    <meta name="description" content="Revealing Reality. Proprietary AI infrastructure in pursuit of signal.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
@@ -17,10 +17,10 @@
             --text-primary: #bf8e84;
             --text-secondary: #70504a;
             --text-dim: #4a302c;
-            --red: #c0392b;
-            --red-bright: #e74c3c;
-            --red-soft: #d4635a;
-            --border: rgba(192, 57, 43, 0.06);
+            --red: #fc4839;
+            --red-bright: #fc4839;
+            --red-soft: #fc4839;
+            --border: rgba(252, 72, 57, 0.06);
             --font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
@@ -79,8 +79,8 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: rgba(192, 57, 43, 0.08);
-            border: 1px solid rgba(192, 57, 43, 0.15);
+            background: rgba(252, 72, 57, 0.08);
+            border: 1px solid rgba(252, 72, 57, 0.15);
             border-radius: 20px;
             padding: 2px;
             margin-left: auto;
@@ -100,7 +100,7 @@
             transition: all 0.3s ease;
         }
         .lang-btn.active {
-            background: rgba(192, 57, 43, 0.2);
+            background: rgba(252, 72, 57, 0.2);
             color: var(--text-hero);
             font-weight: 500;
         }
@@ -216,7 +216,7 @@
             color: var(--text-hero);
             max-width: 560px;
             margin: 0 auto 1.1rem auto;
-            text-align: left;
+            text-align: center;
         }
         .models-text:first-child {
             font-weight: 300;
@@ -253,12 +253,85 @@
             width: 100%; height: 100%;
         }
 
+        .orbit-ring {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 80%; height: 80%;
+            transform: translate(-50%, -50%);
+            animation: orbitSpin 40s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .orbit-ring circle {
+            fill: none;
+            stroke: rgba(252, 72, 57, 0.14);
+            stroke-width: 1;
+            stroke-dasharray: 6.997 6.997;
+        }
+
+        @keyframes orbitSpin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(-360deg); }
+        }
+
         .orrery-center {
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 2;
+            width: 90px; height: 90px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 45% 42%,
+                rgba(252, 72, 57, 0.25) 0%,
+                rgba(252, 72, 57, 0.12) 20%,
+                rgba(180, 40, 30, 0.06) 40%,
+                rgba(10, 6, 7, 0.7) 65%,
+                rgba(10, 6, 7, 0.95) 80%,
+                rgba(10, 6, 7, 1) 100%
+            );
+            box-shadow:
+                0 0 20px rgba(252, 72, 57, 0.12),
+                0 0 50px rgba(252, 72, 57, 0.08),
+                0 0 90px rgba(252, 72, 57, 0.04);
+            animation: spherePulse 5s ease-in-out infinite;
+        }
+
+        .orrery-center::before {
+            content: '';
+            position: absolute;
+            inset: -18px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                transparent 38%,
+                rgba(252, 72, 57, 0.06) 50%,
+                rgba(252, 72, 57, 0.04) 60%,
+                rgba(252, 72, 57, 0.015) 75%,
+                transparent 100%
+            );
+            z-index: -1;
+            animation: coronaPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes spherePulse {
+            0%, 100% {
+                box-shadow:
+                    0 0 20px rgba(252, 72, 57, 0.12),
+                    0 0 50px rgba(252, 72, 57, 0.08),
+                    0 0 90px rgba(252, 72, 57, 0.04);
+            }
+            50% {
+                box-shadow:
+                    0 0 25px rgba(252, 72, 57, 0.18),
+                    0 0 60px rgba(252, 72, 57, 0.12),
+                    0 0 110px rgba(252, 72, 57, 0.06);
+            }
+        }
+
+        @keyframes coronaPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.08); opacity: 1; }
         }
 
         .orrery-center-word {
@@ -267,6 +340,9 @@
             letter-spacing: 0.25em;
             text-transform: uppercase;
             color: var(--red-soft);
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 0 12px rgba(252, 72, 57, 0.3);
         }
 
         .o-node {
@@ -286,18 +362,18 @@
 
         .o-node p {
             font-size: 0.68rem; font-weight: 300;
-            color: var(--text-secondary);
+            color: #a17a72;
             line-height: 1.4;
         }
 
-        /* 7 nodes at 360/7 = 51.43° intervals, starting at top (-90°) */
-        .o-0 { top: 3%;    left: 50%; }
-        .o-1 { top: 20%;   left: 86.5%; }
-        .o-2 { top: 58.5%; left: 95%; }
-        .o-3 { top: 89%;   left: 71%; }
-        .o-4 { top: 89%;   left: 29%; }
-        .o-5 { top: 58.5%; left: 5%; }
-        .o-6 { top: 20%;   left: 13.5%; }
+        /* 7 nodes at 360/7 = 51.43° intervals, starting at top (-90°), pushed beyond orbit ring */
+        .o-0 { top: 1%;    left: 50%; }
+        .o-1 { top: 17%;   left: 90%; }
+        .o-2 { top: 58%;   left: 99%; }
+        .o-3 { top: 91%;   left: 74%; }
+        .o-4 { top: 91%;   left: 26%; }
+        .o-5 { top: 58%;   left: 1%; }
+        .o-6 { top: 17%;   left: 10%; }
 
         .statement {
             border-top: 1px solid var(--border);
@@ -557,7 +633,7 @@
 <section class="hero">
     <canvas id="sacred-canvas"></canvas>
     <div class="hero-content">
-        <h1 class="hero-title">Sovereign Systems.<br><span class="accent">Revealing Reality.</span></h1>
+        <h1 class="hero-title"><span class="accent">Revealing Reality.</span></h1>
         <p class="hero-sub">Proprietary AI in pursuit of signal.</p>
     </div>
     <div class="hero-scroll"></div>
@@ -578,6 +654,7 @@
 
         <div class="orrery">
             <canvas class="orrery-canvas" id="orreryCanvas"></canvas>
+            <svg class="orbit-ring" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49"/></svg>
 
             <div class="orrery-center">
                 <span class="orrery-center-word">Reality</span>
@@ -588,28 +665,28 @@
                 <p>Thousands of sources.</p>
             </div>
             <div class="o-node o-1">
-                <h4>Infer</h4>
-                <p>Specialized models.</p>
+                <h4>Refine</h4>
+                <p>Retrain. Improve. Repeat.</p>
             </div>
             <div class="o-node o-2">
-                <h4>Synthesize</h4>
-                <p>Consensus from divergence.</p>
-            </div>
-            <div class="o-node o-3">
-                <h4>Backtest</h4>
-                <p>Prove it against history.</p>
-            </div>
-            <div class="o-node o-4">
-                <h4>Predict</h4>
-                <p>Commit to a position.</p>
-            </div>
-            <div class="o-node o-5">
                 <h4>Validate</h4>
                 <p>Compare to reality.</p>
             </div>
+            <div class="o-node o-3">
+                <h4>Predict</h4>
+                <p>Commit to a position.</p>
+            </div>
+            <div class="o-node o-4">
+                <h4>Backtest</h4>
+                <p>Prove it against history.</p>
+            </div>
+            <div class="o-node o-5">
+                <h4>Synthesize</h4>
+                <p>Consensus from divergence.</p>
+            </div>
             <div class="o-node o-6">
-                <h4>Refine</h4>
-                <p>Retrain. Improve. Repeat.</p>
+                <h4>Infer</h4>
+                <p>Specialized models.</p>
             </div>
         </div>
     </div>
@@ -706,7 +783,7 @@ function draw() {
         pts.push({x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R});
     }
 
-    ctx.strokeStyle = 'rgba(192, 57, 43, 0.03)';
+    ctx.strokeStyle = 'rgba(252, 72, 57, 0.03)';
     ctx.lineWidth = 0.5;
     for (var i = 0; i < pts.length; i++) {
         for (var j = i + 1; j < pts.length; j++) {
@@ -720,12 +797,12 @@ function draw() {
     for (var i = 0; i < pts.length; i++) {
         ctx.beginPath();
         ctx.arc(pts[i].x, pts[i].y, R * 0.17, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(192, 57, 43, ' + (i === 0 ? 0.06 : 0.02) + ')';
+        ctx.strokeStyle = 'rgba(252, 72, 57, ' + (i === 0 ? 0.06 : 0.02) + ')';
         ctx.lineWidth = 0.4;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(pts[i].x, pts[i].y, i === 0 ? 2.5 : 1.2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(192, 57, 43, ' + (i === 0 ? 0.35 : 0.12) + ')';
+        ctx.fillStyle = 'rgba(252, 72, 57, ' + (i === 0 ? 0.35 : 0.12) + ')';
         ctx.fill();
     }
 
@@ -751,50 +828,24 @@ function drawOrrery() {
     oCtx.clearRect(0, 0, w, h);
     var cx = w / 2, cy = h / 2;
     var R = Math.min(w, h) * 0.40;
-    var rot = ot * 0.0003;
+    var rot = -ot * 0.0003; // counter-clockwise
 
+    // Orbit rings with subtle shimmer
     for (var r = 0; r < 3; r++) {
         var ringR = R * (0.35 + r * 0.15);
+        var ringAlpha = (0.035 - r * 0.008) + Math.sin(ot * 0.001 + r) * 0.005;
         oCtx.beginPath();
         oCtx.arc(cx, cy, ringR, 0, Math.PI * 2);
-        oCtx.strokeStyle = 'rgba(192, 57, 43, ' + (0.035 - r * 0.008) + ')';
+        oCtx.strokeStyle = 'rgba(252, 72, 57, ' + ringAlpha + ')';
         oCtx.lineWidth = 0.5;
         oCtx.stroke();
     }
 
-    oCtx.beginPath();
-    oCtx.arc(cx, cy, R, 0, Math.PI * 2);
-    oCtx.strokeStyle = 'rgba(192, 57, 43, 0.07)';
-    oCtx.lineWidth = 0.6;
-    oCtx.setLineDash([3, 5]);
-    oCtx.stroke();
-    oCtx.setLineDash([]);
+    // (Main orbit ring handled by CSS .orbit-ring)
 
-    for (var p = 0; p < 14; p++) {
-        var pa = (Math.PI * 2 / 14) * p + rot;
-        var pr = R * (0.82 + Math.sin(ot * 0.002 + p * 1.7) * 0.15);
-        var px = cx + Math.cos(pa) * pr;
-        var py = cy + Math.sin(pa) * pr;
-        var pSize = 1 + Math.sin(ot * 0.003 + p) * 0.5;
-        oCtx.beginPath();
-        oCtx.arc(px, py, pSize, 0, Math.PI * 2);
-        oCtx.fillStyle = 'rgba(192, 57, 43, ' + (0.1 + Math.sin(ot * 0.002 + p * 2) * 0.05) + ')';
-        oCtx.fill();
-    }
+    // (Center sphere handled by CSS)
 
-    var grad = oCtx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.22);
-    grad.addColorStop(0, 'rgba(192, 57, 43, 0.07)');
-    grad.addColorStop(1, 'rgba(192, 57, 43, 0)');
-    oCtx.beginPath();
-    oCtx.arc(cx, cy, R * 0.22, 0, Math.PI * 2);
-    oCtx.fillStyle = grad;
-    oCtx.fill();
-
-    oCtx.beginPath();
-    oCtx.arc(cx, cy, 3.5, 0, Math.PI * 2);
-    oCtx.fillStyle = 'rgba(192, 57, 43, 0.35)';
-    oCtx.fill();
-
+    // Subtle radial lines from center to node positions
     for (var n = 0; n < 7; n++) {
         var na = -Math.PI / 2 + (Math.PI * 2 / 7) * n;
         var nx = cx + Math.cos(na) * R;
@@ -803,28 +854,9 @@ function drawOrrery() {
         oCtx.beginPath();
         oCtx.moveTo(cx, cy);
         oCtx.lineTo(nx, ny);
-        oCtx.strokeStyle = 'rgba(192, 57, 43, 0.025)';
+        oCtx.strokeStyle = 'rgba(252, 72, 57, 0.02)';
         oCtx.lineWidth = 0.5;
         oCtx.stroke();
-
-        oCtx.beginPath();
-        oCtx.arc(nx, ny, 4, 0, Math.PI * 2);
-        oCtx.fillStyle = 'rgba(192, 57, 43, 0.2)';
-        oCtx.fill();
-    }
-
-    for (var a = 0; a < 7; a++) {
-        var aa = -Math.PI / 2 + (Math.PI * 2 / 7) * a + (Math.PI / 7);
-        var ax = cx + Math.cos(aa) * R;
-        var ay = cy + Math.sin(aa) * R;
-        var aDir = aa + Math.PI / 2;
-        oCtx.beginPath();
-        oCtx.moveTo(ax + Math.cos(aDir) * 4, ay + Math.sin(aDir) * 4);
-        oCtx.lineTo(ax - Math.cos(aDir) * 2 + Math.cos(aa) * 3, ay - Math.sin(aDir) * 2 + Math.sin(aa) * 3);
-        oCtx.lineTo(ax - Math.cos(aDir) * 2 - Math.cos(aa) * 3, ay - Math.sin(aDir) * 2 - Math.sin(aa) * 3);
-        oCtx.closePath();
-        oCtx.fillStyle = 'rgba(192, 57, 43, 0.08)';
-        oCtx.fill();
     }
 
     ot++;
@@ -852,7 +884,7 @@ document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 // ─── Language Toggle ───
 var translations = {
     en: {
-        heroTitle: 'Sovereign Systems.<br><span class="accent">Revealing Reality.</span>',
+        heroTitle: '<span class="accent">Revealing Reality.</span>',
         heroSub: 'Proprietary AI in pursuit of signal.',
         modelsText: '<span class="accent">Intelligence is emerging</span> as a new form of infrastructure.<br><br>VIAPLEX develops sovereign intelligence systems for deep analysis across complex domains.<br><br>Built to deepen knowledge and generate predictive insight.<br><br>The domains we study and the methods we employ remain proprietary.',
         statement: 'We train proprietary models, run continuous experiments, and backtest relentlessly \u2014 not just to predict, but to <strong>arrive at understanding</strong>.',
@@ -865,16 +897,16 @@ var translations = {
         navInfra: 'Infrastructure',
         navContact: 'Contact',
         node0: '<h4>Ingest</h4><p>Thousands of sources.</p>',
-        node1: '<h4>Infer</h4><p>Specialized models.</p>',
-        node2: '<h4>Synthesize</h4><p>Consensus from divergence.</p>',
-        node3: '<h4>Backtest</h4><p>Prove it against history.</p>',
-        node4: '<h4>Predict</h4><p>Commit to a position.</p>',
-        node5: '<h4>Validate</h4><p>Compare to reality.</p>',
-        node6: '<h4>Refine</h4><p>Retrain. Improve. Repeat.</p>',
+        node1: '<h4>Refine</h4><p>Retrain. Improve. Repeat.</p>',
+        node2: '<h4>Validate</h4><p>Compare to reality.</p>',
+        node3: '<h4>Predict</h4><p>Commit to a position.</p>',
+        node4: '<h4>Backtest</h4><p>Prove it against history.</p>',
+        node5: '<h4>Synthesize</h4><p>Consensus from divergence.</p>',
+        node6: '<h4>Infer</h4><p>Specialized models.</p>',
         centerWord: 'Reality'
     },
     es: {
-        heroTitle: 'Sistemas Soberanos.<br><span class="accent">Revelando la Realidad.</span>',
+        heroTitle: '<span class="accent">Revelando la Realidad.</span>',
         heroSub: 'IA propietaria en busca de la se\u00f1al.',
         modelsText: '<span class="accent">La inteligencia est\u00e1 emergiendo</span> como una nueva forma de infraestructura.<br><br>VIAPLEX desarrolla sistemas de inteligencia soberana para el an\u00e1lisis profundo en dominios complejos.<br><br>Construidos para profundizar el conocimiento y generar perspectivas predictivas.<br><br>Los dominios que estudiamos y los m\u00e9todos que empleamos son propietarios.',
         statement: 'Entrenamos modelos propietarios, ejecutamos experimentos continuos y realizamos backtesting sin descanso \u2014 no solo para predecir, sino para <strong>llegar a la comprensi\u00f3n</strong>.',
@@ -887,12 +919,12 @@ var translations = {
         navInfra: 'Infraestructura',
         navContact: 'Contacto',
         node0: '<h4>Ingerir</h4><p>Miles de fuentes.</p>',
-        node1: '<h4>Inferir</h4><p>Modelos especializados.</p>',
-        node2: '<h4>Sintetizar</h4><p>Consenso desde la divergencia.</p>',
-        node3: '<h4>Backtesting</h4><p>Probarlo contra la historia.</p>',
-        node4: '<h4>Predecir</h4><p>Comprometerse con una posici\u00f3n.</p>',
-        node5: '<h4>Validar</h4><p>Comparar con la realidad.</p>',
-        node6: '<h4>Refinar</h4><p>Reentrenar. Mejorar. Repetir.</p>',
+        node1: '<h4>Refinar</h4><p>Reentrenar. Mejorar. Repetir.</p>',
+        node2: '<h4>Validar</h4><p>Comparar con la realidad.</p>',
+        node3: '<h4>Predecir</h4><p>Comprometerse con una posici\u00f3n.</p>',
+        node4: '<h4>Backtesting</h4><p>Probarlo contra la historia.</p>',
+        node5: '<h4>Sintetizar</h4><p>Consenso desde la divergencia.</p>',
+        node6: '<h4>Inferir</h4><p>Modelos especializados.</p>',
         centerWord: 'Realidad'
     }
 };
