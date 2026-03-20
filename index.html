@@ -17,10 +17,10 @@
             --text-primary: #bf8e84;
             --text-secondary: #70504a;
             --text-dim: #4a302c;
-            --red: #fc4839;
-            --red-bright: #fc4839;
-            --red-soft: #fc4839;
-            --border: rgba(252, 72, 57, 0.06);
+            --red: #e85248;
+            --red-bright: #e85248;
+            --red-soft: #e85248;
+            --border: rgba(232, 82, 72, 0.06);
             --font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
@@ -79,8 +79,8 @@
             display: flex;
             align-items: center;
             gap: 0;
-            background: rgba(252, 72, 57, 0.08);
-            border: 1px solid rgba(252, 72, 57, 0.15);
+            background: rgba(232, 82, 72, 0.08);
+            border: 1px solid rgba(232, 82, 72, 0.15);
             border-radius: 20px;
             padding: 2px;
             margin-left: auto;
@@ -100,7 +100,7 @@
             transition: all 0.3s ease;
         }
         .lang-btn.active {
-            background: rgba(252, 72, 57, 0.2);
+            background: rgba(232, 82, 72, 0.2);
             color: var(--text-hero);
             font-weight: 500;
         }
@@ -256,17 +256,17 @@
         .orbit-ring {
             position: absolute;
             top: 50%; left: 50%;
-            width: 80%; height: 80%;
+            width: 96%; height: 96%;
             transform: translate(-50%, -50%);
-            animation: orbitSpin 40s linear infinite;
+            animation: orbitSpin 33s linear infinite;
             pointer-events: none;
             z-index: 1;
         }
         .orbit-ring circle {
             fill: none;
-            stroke: rgba(252, 72, 57, 0.14);
-            stroke-width: 1;
-            stroke-dasharray: 6.997 6.997;
+            stroke: rgba(232, 82, 72, 0.14);
+            stroke-width: 0.67;
+            stroke-dasharray: 11.842 11.842;
         }
 
         @keyframes orbitSpin {
@@ -280,35 +280,40 @@
             transform: translate(-50%, -50%);
             text-align: center;
             z-index: 2;
-            width: 90px; height: 90px;
+            width: clamp(82px, 21.5vw, 124px); height: clamp(82px, 21.5vw, 124px);
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            background: radial-gradient(circle at 45% 42%,
-                rgba(252, 72, 57, 0.25) 0%,
-                rgba(252, 72, 57, 0.12) 20%,
-                rgba(180, 40, 30, 0.06) 40%,
-                rgba(10, 6, 7, 0.7) 65%,
-                rgba(10, 6, 7, 0.95) 80%,
-                rgba(10, 6, 7, 1) 100%
-            );
+            background:
+                radial-gradient(circle at 46% 40%, rgba(255, 150, 130, 0.12) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%,
+                    rgba(232, 82, 72, 0.28) 0%,
+                    rgba(232, 82, 72, 0.18) 12%,
+                    rgba(220, 70, 60, 0.10) 28%,
+                    rgba(140, 40, 35, 0.04) 42%,
+                    rgba(20, 8, 7, 0.55) 58%,
+                    rgba(10, 6, 7, 0.88) 75%,
+                    rgba(10, 6, 7, 1) 90%
+                );
             box-shadow:
-                0 0 20px rgba(252, 72, 57, 0.12),
-                0 0 50px rgba(252, 72, 57, 0.08),
-                0 0 90px rgba(252, 72, 57, 0.04);
+                0 0 30px rgba(232, 82, 72, 0.14),
+                0 0 70px rgba(232, 82, 72, 0.09),
+                0 0 130px rgba(232, 82, 72, 0.05),
+                0 0 200px rgba(232, 82, 72, 0.025);
             animation: spherePulse 5s ease-in-out infinite;
         }
 
         .orrery-center::before {
             content: '';
             position: absolute;
-            inset: -18px;
+            inset: -120px;
             border-radius: 50%;
             background: radial-gradient(circle,
-                transparent 38%,
-                rgba(252, 72, 57, 0.06) 50%,
-                rgba(252, 72, 57, 0.04) 60%,
-                rgba(252, 72, 57, 0.015) 75%,
-                transparent 100%
+                transparent 16%,
+                rgba(232, 82, 72, 0.045) 24%,
+                rgba(232, 82, 72, 0.035) 34%,
+                rgba(232, 82, 72, 0.02) 48%,
+                rgba(232, 82, 72, 0.008) 64%,
+                transparent 82%
             );
             z-index: -1;
             animation: coronaPulse 5s ease-in-out infinite;
@@ -317,32 +322,35 @@
         @keyframes spherePulse {
             0%, 100% {
                 box-shadow:
-                    0 0 20px rgba(252, 72, 57, 0.12),
-                    0 0 50px rgba(252, 72, 57, 0.08),
-                    0 0 90px rgba(252, 72, 57, 0.04);
+                    0 0 30px rgba(232, 82, 72, 0.14),
+                    0 0 70px rgba(232, 82, 72, 0.09),
+                    0 0 130px rgba(232, 82, 72, 0.05),
+                    0 0 200px rgba(232, 82, 72, 0.025);
             }
             50% {
                 box-shadow:
-                    0 0 25px rgba(252, 72, 57, 0.18),
-                    0 0 60px rgba(252, 72, 57, 0.12),
-                    0 0 110px rgba(252, 72, 57, 0.06);
+                    0 0 40px rgba(232, 82, 72, 0.18),
+                    0 0 90px rgba(232, 82, 72, 0.12),
+                    0 0 170px rgba(232, 82, 72, 0.065),
+                    0 0 260px rgba(232, 82, 72, 0.03);
             }
         }
 
         @keyframes coronaPulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.08); opacity: 1; }
+            0%, 100% { transform: scale(1); opacity: 0.85; }
+            50% { transform: scale(1.06); opacity: 1; }
         }
 
         .orrery-center-word {
-            font-size: 0.78rem;
+            font-size: clamp(0.62rem, 1.3vw, 0.78rem);
             font-weight: 400;
-            letter-spacing: 0.25em;
+            letter-spacing: 0.5em;
             text-transform: uppercase;
             color: var(--red-soft);
             position: relative;
             z-index: 1;
-            text-shadow: 0 0 12px rgba(252, 72, 57, 0.3);
+            text-shadow: 0 0 12px rgba(232, 82, 72, 0.3);
+            padding-left: 0.5em;
         }
 
         .o-node {
@@ -358,6 +366,7 @@
             font-size: 0.85rem; font-weight: 400;
             color: var(--text-hero);
             margin-bottom: 0.12rem;
+            letter-spacing: 0.24em;
         }
 
         .o-node p {
@@ -366,14 +375,14 @@
             line-height: 1.4;
         }
 
-        /* 7 nodes at 360/7 = 51.43° intervals, starting at top (-90°), pushed beyond orbit ring */
-        .o-0 { top: 1%;    left: 50%; }
-        .o-1 { top: 17%;   left: 90%; }
-        .o-2 { top: 58%;   left: 99%; }
-        .o-3 { top: 91%;   left: 74%; }
-        .o-4 { top: 91%;   left: 26%; }
-        .o-5 { top: 58%;   left: 1%; }
-        .o-6 { top: 17%;   left: 10%; }
+        /* 7 nodes at 360/7 = 51.43° intervals, equal distance from center */
+        .o-0 { top: 2%;    left: 50%; }
+        .o-1 { top: 20.1%; left: 87.5%; }
+        .o-2 { top: 60.7%; left: 96.8%; }
+        .o-3 { top: 93.2%; left: 70.8%; }
+        .o-4 { top: 93.2%; left: 29.2%; }
+        .o-5 { top: 60.7%; left: 3.2%; }
+        .o-6 { top: 20.1%; left: 12.5%; }
 
         .statement {
             border-top: 1px solid var(--border);
@@ -531,8 +540,8 @@
             .o-node { width: 90px; margin-left: -45px; margin-top: -22px; }
             .o-node h4 { font-size: 0.72rem; }
             .o-node p { font-size: 0.58rem; }
-            .orrery-center-word { font-size: 0.68rem; }
             .orrery-canvas { opacity: 0.15; }
+            .orrery-center::before { inset: -75px; }
             .contact-bg-symbol { width: 200px; height: 200px; right: -15%; opacity: 0.03; }
         }
     </style>
@@ -662,31 +671,31 @@
 
             <div class="o-node o-0">
                 <h4>Ingest</h4>
-                <p>Thousands of sources.</p>
+                <p>Thousands of sources</p>
             </div>
             <div class="o-node o-1">
                 <h4>Refine</h4>
-                <p>Retrain. Improve. Repeat.</p>
+                <p>Retrain - Improve - Repeat</p>
             </div>
             <div class="o-node o-2">
                 <h4>Validate</h4>
-                <p>Compare to reality.</p>
+                <p>Compare to reality</p>
             </div>
             <div class="o-node o-3">
                 <h4>Predict</h4>
-                <p>Commit to a position.</p>
+                <p>Commit to a position</p>
             </div>
             <div class="o-node o-4">
                 <h4>Backtest</h4>
-                <p>Prove it against history.</p>
+                <p>Prove it against history</p>
             </div>
             <div class="o-node o-5">
                 <h4>Synthesize</h4>
-                <p>Consensus from divergence.</p>
+                <p>Consensus from divergence</p>
             </div>
             <div class="o-node o-6">
                 <h4>Infer</h4>
-                <p>Specialized models.</p>
+                <p>Specialized models</p>
             </div>
         </div>
     </div>
@@ -783,7 +792,7 @@ function draw() {
         pts.push({x: cx + Math.cos(a) * R, y: cy + Math.sin(a) * R});
     }
 
-    ctx.strokeStyle = 'rgba(252, 72, 57, 0.03)';
+    ctx.strokeStyle = 'rgba(232, 82, 72, 0.03)';
     ctx.lineWidth = 0.5;
     for (var i = 0; i < pts.length; i++) {
         for (var j = i + 1; j < pts.length; j++) {
@@ -797,12 +806,12 @@ function draw() {
     for (var i = 0; i < pts.length; i++) {
         ctx.beginPath();
         ctx.arc(pts[i].x, pts[i].y, R * 0.17, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(252, 72, 57, ' + (i === 0 ? 0.06 : 0.02) + ')';
+        ctx.strokeStyle = 'rgba(232, 82, 72, ' + (i === 0 ? 0.06 : 0.02) + ')';
         ctx.lineWidth = 0.4;
         ctx.stroke();
         ctx.beginPath();
         ctx.arc(pts[i].x, pts[i].y, i === 0 ? 2.5 : 1.2, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(252, 72, 57, ' + (i === 0 ? 0.35 : 0.12) + ')';
+        ctx.fillStyle = 'rgba(232, 82, 72, ' + (i === 0 ? 0.35 : 0.12) + ')';
         ctx.fill();
     }
 
@@ -836,7 +845,7 @@ function drawOrrery() {
         var ringAlpha = (0.035 - r * 0.008) + Math.sin(ot * 0.001 + r) * 0.005;
         oCtx.beginPath();
         oCtx.arc(cx, cy, ringR, 0, Math.PI * 2);
-        oCtx.strokeStyle = 'rgba(252, 72, 57, ' + ringAlpha + ')';
+        oCtx.strokeStyle = 'rgba(232, 82, 72, ' + ringAlpha + ')';
         oCtx.lineWidth = 0.5;
         oCtx.stroke();
     }
@@ -854,7 +863,7 @@ function drawOrrery() {
         oCtx.beginPath();
         oCtx.moveTo(cx, cy);
         oCtx.lineTo(nx, ny);
-        oCtx.strokeStyle = 'rgba(252, 72, 57, 0.02)';
+        oCtx.strokeStyle = 'rgba(232, 82, 72, 0.02)';
         oCtx.lineWidth = 0.5;
         oCtx.stroke();
     }
@@ -896,13 +905,13 @@ var translations = {
         navPlatform: 'Platform',
         navInfra: 'Infrastructure',
         navContact: 'Contact',
-        node0: '<h4>Ingest</h4><p>Thousands of sources.</p>',
-        node1: '<h4>Refine</h4><p>Retrain. Improve. Repeat.</p>',
-        node2: '<h4>Validate</h4><p>Compare to reality.</p>',
-        node3: '<h4>Predict</h4><p>Commit to a position.</p>',
-        node4: '<h4>Backtest</h4><p>Prove it against history.</p>',
-        node5: '<h4>Synthesize</h4><p>Consensus from divergence.</p>',
-        node6: '<h4>Infer</h4><p>Specialized models.</p>',
+        node0: '<h4>Ingest</h4><p>Thousands of sources</p>',
+        node1: '<h4>Refine</h4><p>Retrain - Improve - Repeat</p>',
+        node2: '<h4>Validate</h4><p>Compare to reality</p>',
+        node3: '<h4>Predict</h4><p>Commit to a position</p>',
+        node4: '<h4>Backtest</h4><p>Prove it against history</p>',
+        node5: '<h4>Synthesize</h4><p>Consensus from divergence</p>',
+        node6: '<h4>Infer</h4><p>Specialized models</p>',
         centerWord: 'Reality'
     },
     es: {
@@ -918,13 +927,13 @@ var translations = {
         navPlatform: 'Plataforma',
         navInfra: 'Infraestructura',
         navContact: 'Contacto',
-        node0: '<h4>Ingerir</h4><p>Miles de fuentes.</p>',
-        node1: '<h4>Refinar</h4><p>Reentrenar. Mejorar. Repetir.</p>',
-        node2: '<h4>Validar</h4><p>Comparar con la realidad.</p>',
-        node3: '<h4>Predecir</h4><p>Comprometerse con una posici\u00f3n.</p>',
-        node4: '<h4>Backtesting</h4><p>Probarlo contra la historia.</p>',
-        node5: '<h4>Sintetizar</h4><p>Consenso desde la divergencia.</p>',
-        node6: '<h4>Inferir</h4><p>Modelos especializados.</p>',
+        node0: '<h4>Ingerir</h4><p>Miles de fuentes</p>',
+        node1: '<h4>Refinar</h4><p>Reentrenar - Mejorar - Repetir</p>',
+        node2: '<h4>Validar</h4><p>Comparar con la realidad</p>',
+        node3: '<h4>Predecir</h4><p>Comprometerse con una posici\u00f3n</p>',
+        node4: '<h4>Backtesting</h4><p>Probarlo contra la historia</p>',
+        node5: '<h4>Sintetizar</h4><p>Consenso desde la divergencia</p>',
+        node6: '<h4>Inferir</h4><p>Modelos especializados</p>',
         centerWord: 'Realidad'
     }
 };
